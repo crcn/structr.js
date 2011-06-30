@@ -9,11 +9,8 @@ Structr is a framework that aims to:
 		
 Using Structr
 -------------
-
-
-               
+ 
 	var Recipe = Structr({  
-		
 		
 		'__construct': function(name)
 		{
@@ -27,14 +24,12 @@ Using Structr
 		
 		'ingredients': function()
 		{
-			alert('Ingredients for '+this._name+':');
+			alert('This is going to be tasty...');
 		}
-		
 	});                      
 
 	var tiramisuRecipe = new Recipe('Tiramisu');   
 	console.log(tiramisuRecipe.name()); //tiramisu
-
 
 
 ### Class.extend
@@ -79,34 +74,110 @@ Using Structr
 Properties
 ----------
 
-### __construct
+### _super
 
-Called on instantiation of the class.
-
-
+References the parent class method if override is provided.
 
 Modifiers
 ---------      
                       
-                        
-### Final Methods
-                        
+### Overriding Methods
+
+Methods overridden have access to the _super property.
+
+	'override __construct': function()
+	{
+		this._super();
+	}
+
+### Overwriting Methods
+   
+Faster if you don't plan on using super.
+
+	'__construct': function()
+	{
+		//cannot access _super __construct
+	}
+  
 ### Final Methods 
 
+Final methods cannot be overridden by sub-classes. Otherwise an exception is thrown.
+
+	'final getName': function(){}
+
 ### Abstract Methods
+
+Abstract methods must be overridden by sub-classes. Otherwise an exception is thrown.
+	
+	'abstract getName': function(){}
     
 ### Static Keyword 
 
-### Getters & Setters     
+Properties, and methods set to the class versus objects instantiated.
 
+	var Singleton = Structr({
+		
+		'static getInstance': function()
+		{
+			return this._instance || (this._instance = new Singleton());
+		}
+	});
+	
+	var test1 = Singleton.getInstance();
+	test1.name = 'Craig';
+	
+	var test2 = Singleton.getInstance();
+	test2.name = 'Tim';
+	
+	console.log(test1.name); //Craig
+
+### Getters & Setters   
+
+	var GSTestClass = Structr({
+	
+		'explicit explicitValue': {
+			get: function()
+			{
+				return this._name;
+			},
+			set: function(value)
+			{
+				this._name = value;
+			}
+		},
+		
+		'implicit implicitValue': {
+			get: function()
+			{
+				return this._name;
+			},
+			set: function(value)
+			{
+				this._name = value;
+			}
+		},
+		
+		'explicit explicitValue2':true
+	});
+	
+	
+	var test = new GSTestClass();
+	test.explicitValue('Craig'); 
+	console.log(test.explicitValue());
+	
+	test.implicitValue = 'Tim';
+	console.log(test.implicitValue);//Tim
+	console.log(test.explicitValue());//Tim
+	
+	test.explicitValue2('hello world');
+	console.log(test.explicitValue2());//hello world
+	
 
 Tips:
 ----
 
 * Use underscores before any private method / property. 
 
-E.g: 
-	
 	var SomeClass = Structr({
 		
 		'__construct': function()
