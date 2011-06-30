@@ -2,9 +2,8 @@ Structr - Giving structure to Javascript
 ======================================== 
 Structr is a framework that aims to:
 
-* Feel natural coming from an OO background.   
-* Help javascript developers write re-useable code.
-* Help developers write clean, consistent code.  
+* Provide a super low learning curve comming from OO background. 
+* Help javascript developers write re-useable, clean, and consistent code.
 * Be fun, and easy to work with!
 		   
 		
@@ -33,31 +32,52 @@ Using Structr
 		{
 			console.log('Hello ' + this._name);
 		}
-	})                       
+	});                      
 
 	var hello = new HelloClass('Craig');         
 	hello.sayHello();  
 
                    
-### __construct ###  
-### Class.extend ###
+### __construct   
+### Class.extend
 
 Modifiers
 ---------      
                       
                         
-### Final Methods ###
+### Final Methods
                         
-### Final Methods ###
+### Final Methods 
 
-### Abstract Methods ###
+### Abstract Methods
     
-### Static Keyword ###
+### Static Keyword 
 
-### Getters & Setters ###    
+### Getters & Setters     
 
 
-Design tips
----------
+Tips:
+----
+
+* Use underscores before any private method / property. E.g:
+	
+	var SomeClass = Structr({
+		
+		'__construct': function()
+		{
+			this._myPrivateVariable = 'some private value';
+		},
+		
+		'_myPrivateMethod: function()
+		{
+			//private stuff here
+		}
+		
+	});
+	
+* Always wrap methods / properties in single, or double quotes. 
+
+
+	
 
 
