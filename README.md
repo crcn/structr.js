@@ -12,11 +12,22 @@ Using Structr
                
 ### Structr(Object) ###  
 
-	var HelloClass = Structr({      
+	var HelloClass = Structr({  
+		
+		/**
+		 * Constructor
+		 * @name the name of the person to say hello to
+		 */
+		    
 		'__construct': function(name)
 		{
 			this._name = name;
-		},
+		},                
+		
+		/**
+		 * says hello to the user 
+		 */
+		 
 		'sayHello': function()
 		{
 			console.log('Hello ' + this._name);
