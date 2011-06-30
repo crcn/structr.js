@@ -1,10 +1,10 @@
 Structr - Giving structure to Javascript            
 ======================================== 
 Structr is a framework that aims to:
-	- Feel natural coming from an OO background.   
-	- Help javascript developers write re-useable code.
-	- Help developers write clean, consistent code.  
-	- Be fun, and easy to work with!
+* Feel natural coming from an OO background.   
+* Help javascript developers write re-useable code.
+* Help developers write clean, consistent code.  
+* Be fun, and easy to work with!
 		   
 		
 Using Structr
