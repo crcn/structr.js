@@ -12,19 +12,19 @@ Using Structr
                
 ### Structr(Object) ###  
 
-var HelloClass = Structr({      
-	'__construct': function(name)
-	{
-		this._name = name;
-	},
-	'sayHello': function()
-	{
-		console.log('Hello ' + this._name);
-	}
-})                       
+	var HelloClass = Structr({      
+		'__construct': function(name)
+		{
+			this._name = name;
+		},
+		'sayHello': function()
+		{
+			console.log('Hello ' + this._name);
+		}
+	})                       
 
-var hello = new HelloClass('Craig');         
-hello.sayHello();
+	var hello = new HelloClass('Craig');         
+	hello.sayHello();  
 
                    
 ### __construct ###  
