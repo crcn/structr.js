@@ -59,13 +59,17 @@ Modifiers
 Tips:
 ----
 
-* Use underscores before any private method / property. E.g:
+* Use underscores before any private method / property. 
+
+E.g: 
 	
 	var SomeClass = Structr({
+		
 		'__construct': function()
 		{
 			this._myPrivateVariable = 'some private value';
 		},
+		
 		'_myPrivateMethod': function()
 		{
 			//private stuff here
