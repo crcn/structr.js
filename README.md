@@ -9,37 +9,81 @@ Structr is a framework that aims to:
 		
 Using Structr
 -------------
-               
-### Structr(Object) 
 
-	var HelloClass = Structr({  
+
+               
+	var Recipe = Structr({  
 		
-		/**
-		 * Constructor
-		 * @name the name of the person to say hello to
-		 */
-		    
+		
 		'__construct': function(name)
 		{
 			this._name = name;
 		},                
 		
-		/**
-		 * says hello to the user 
-		 */
-		 
-		'sayHello': function()
+		'name': function()
 		{
-			console.log('Hello ' + this._name);
+			return this._name;
+		},
+		
+		'ingredients': function()
+		{
+			alert('Ingredients for '+this._name+':');
 		}
+		
 	});                      
 
-	var hello = new HelloClass('Craig');         
-	hello.sayHello();  
+	var tiramisuRecipe = new Recipe('Tiramisu');   
+	console.log(tiramisuRecipe.name()); //tiramisu
 
-                   
-### __construct   
+
+
 ### Class.extend
+
+
+	var TiramisuRecipe = Recipe.extend({
+
+		'override __construct': function()
+		{
+			this._super('Tiramisu');
+		},
+		
+		'override ingredients': function()
+		{
+			this._super();
+			
+			alert('Mascarpone, Heavy Cream, Eggs, Espresso, Sugar, Cocoa, Baileys, and Lady Fingers.');
+		}
+	});
+	
+	var PastaRecipe = Recipe.extend({
+		
+		'override __construct': function()
+		{
+			this._super('Pasta');
+		},
+		
+		'override ingredients': function()
+		{
+			this._super();
+			
+			alert('Eggs, Flour, Water, Salt');
+		}
+	});
+	
+	var tiramisu = new TiramisuRecipe();
+	var pasta = new PastaRecipe();
+	
+	tiramisu.ingredients();
+	pasta.ingredients();
+
+Properties
+----------
+
+### __construct
+
+Called on instantiation of the class.
+
+
 
 Modifiers
 ---------      
@@ -76,7 +120,7 @@ E.g:
 		}
 	});
 	
-* Always wrap methods / properties in single, or double quotes. 
+* Wrap methods / properties in single, or double quotes. 
 
 
 	
