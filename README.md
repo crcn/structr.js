@@ -10,7 +10,7 @@ Structr is a framework that aims to:
 Using Structr
 -------------
                
-### Structr(Object) ###  
+### Structr(Object) 
 
 	var HelloClass = Structr({  
 		
@@ -62,17 +62,14 @@ Tips:
 * Use underscores before any private method / property. E.g:
 	
 	var SomeClass = Structr({
-		
 		'__construct': function()
 		{
 			this._myPrivateVariable = 'some private value';
 		},
-		
-		'_myPrivateMethod: function()
+		'_myPrivateMethod': function()
 		{
 			//private stuff here
 		}
-		
 	});
 	
 * Always wrap methods / properties in single, or double quotes. 
