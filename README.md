@@ -192,7 +192,7 @@ Custom modifiers are considered metadata:
 	}));
 	
 	
-	console.log(MetadataTestClass.prototype.name.bindable); //true
+	console.log(MetadataTestClass.prototype.test.bindable); //true
 	
 	
 ###Bindable Metadata
