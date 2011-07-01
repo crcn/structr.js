@@ -178,9 +178,9 @@ Custom modifiers are considered metadata:
 
 	var MetadataTestClass = Structr({
 		
-		'myCustomMetadata last: function()
+		'myCustomMetadata test: function()
 		{
-			return this._last;
+			return 'Hello Test';
 		}
 	}));
 	
@@ -207,12 +207,14 @@ To add. Makes a property bindable for change. Psuedocode example:
 	
 	var person1 = new Person('craig');
 	
+	//listen for any change to name
 	person1.name.subscribe(function(newName)
 	{
 		alert('Name changed to '+newName);
 	});
 
-	person1.name = 'Craig';
+	//on change the subscribers will be triggered
+	person1.name('Craig');
 	
 ###Setting Metadata
 
