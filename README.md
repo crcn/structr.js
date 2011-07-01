@@ -101,13 +101,13 @@ Faster if you don't plan on using _super.
   
 ### Final Methods 
 
-Final methods cannot be overridden by sub-classes. Otherwise an exception is thrown.
+Final methods *cannot* be overridden by sub-classes. Otherwise an exception is thrown.
 
 	'final getName': function(){}
 
 ### Abstract Methods
 
-Abstract methods must be overridden by sub-classes. Otherwise an exception is thrown.
+Abstract methods *must* be overridden by sub-classes. Otherwise an exception is thrown.
 	
 	'abstract getName': function(){}
     
