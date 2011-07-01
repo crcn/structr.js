@@ -5,6 +5,12 @@ Structr is a framework that aims to:
 * Provide a super low learning curve comming from OO background. 
 * Help javascript developers write re-useable, clean, and consistent code.
 * Be fun, and easy to work with.
+
+Installation
+------------
+
+Node.js: 
+	npm install structr
 		   
 		
 Using Structr
