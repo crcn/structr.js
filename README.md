@@ -92,7 +92,7 @@ Methods overridden have access to the _super property.
 
 ### Overwriting Methods
    
-Faster if you don't plan on using super.
+Faster if you don't plan on using _super.
 
 	'__construct': function()
 	{
@@ -124,10 +124,8 @@ Properties, and methods set to the class versus objects instantiated.
 	});
 	
 	var test1 = Singleton.getInstance();
-	test1.name = 'Craig';
-	
 	var test2 = Singleton.getInstance();
-	test2.name = 'Tim';
+	test2.name = 'Craig';
 	
 	console.log(test1.name); //Craig
 
@@ -177,6 +175,8 @@ Tips:
 ----
 
 * Use underscores before any private method / property. 
+
+E.g: 
 
 	var SomeClass = Structr({
 		
