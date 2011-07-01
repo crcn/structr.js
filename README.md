@@ -171,6 +171,85 @@ Properties, and methods set to the class versus objects instantiated.
 	console.log(test.explicitValue2());//hello world
 	
 
+Metadata 
+--------
+
+Custom modifiers are considered metadata:
+
+	var MetadataTestClass = Structr({
+		
+		'myCustomMetadata last: function()
+		{
+			return this._last;
+		}
+	}));
+	
+	
+	console.log(MetadataTestClass.prototype.name.bindable); //true
+	
+	
+###Bindable Metadata
+
+To add. Makes a property bindable for change. Psuedocode example:
+
+	var Person = Structr({
+		
+		'__construct': function(name)
+		{
+			this.name(name);
+			
+			Bindable.apply(this);
+		},
+		
+		'bindable explicit name': 1
+	});
+	
+	
+	var person1 = new Person('craig');
+	
+	person1.name.subscribe(function(newName)
+	{
+		alert('Name changed to '+newName);
+	});
+
+	person1.name = 'Craig';
+	
+###Setting Metadata
+
+To add. Easy way to store settings on the user's computer.
+
+	var User = Structr({
+	
+		'__construct': function()
+		{
+			SettingManager.apply(this);
+		},
+		
+		'login': function()
+		{
+			
+			//set the account info which will be saved as a cookie
+			this.accountInfo({ name: 'Craig', last: 'Condon', 'token': 'XXXXXXXXXX' })
+		},
+		
+		'setting explicit accountInfo': 1
+	});
+	
+	
+	var u = new User();
+	
+	if(!user.accountInfo)
+	{
+		
+		u.login();
+	}
+	else
+	{
+		//pulled from cookie
+		alert(user.accountInfo.name);
+	}
+	
+	
 Tips:
 ----
 
