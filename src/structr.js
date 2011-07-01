@@ -27,15 +27,16 @@ var Structr = function (fhClass, parent)
 	return that.__construct;
 }
 
-Structr.copy = function(from, to, deep)
+Structr.copy = function(from, to)
 {
 	if(!to) to = {};
-	
+    
     for (var i in from) 
     {
         var fromValue = from[i],
 			toValue = to[i],
 			newValue;
+        
         
         if (typeof fromValue == 'object') 
         {
@@ -54,8 +55,7 @@ Structr.copy = function(from, to, deep)
 			}
 			
             // newValue = value instanceof Array ? [] : {};
-			
-            Structr.copy(fromValue, newValue, deep);
+            Structr.copy(fromValue, newValue);
         }
         else 
         {
@@ -297,8 +297,8 @@ Structr.extend = function(from, to)
     if (to instanceof Function) 
         to = to();
     
-
-    Structr.copy(from, that, true);
+    Structr.copy(from, that);
+    
     var availModifiers = Structr.modifier, usedProperties = {};
 	
     
@@ -410,13 +410,8 @@ Structr.extend = function(from, to)
     
     
     return that;
-}     
-
-Structr.extend = function(that, target)
-{
-    Structr.copy(Structr.extend(that, target), that);
 }
-   
+
                                   
 //replaces the properties in the target
 Structr.replace = function(that, target)
@@ -460,4 +455,4 @@ Structr.fh = function(that)
     return that;
 }
 
-if(exports) exports.Structr = Structr;
+if(this.exports) exports.Structr = Structr;

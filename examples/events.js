@@ -1,5 +1,5 @@
 
-var EventEmitter = {
+var EventEmitter = Structr({
 
     /**
      */
@@ -71,7 +71,7 @@ var EventEmitter = {
 			lists[i].apply(this, args);
 		}     
 	}
-}
+});
 
 
 
@@ -95,7 +95,7 @@ em.on('sayHello', function(value)
 em.on('sayHello', function(value)
 {
     alert('Hello '+value);
-});``1
+});
 
 
 em.emit('sayHello', 'craig');
