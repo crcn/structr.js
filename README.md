@@ -10,6 +10,7 @@ Installation
 ------------
 
 Node.js: 
+
 	npm install structr
 		   
 		
