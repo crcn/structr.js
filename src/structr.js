@@ -1,4 +1,4 @@
-var Structr = function(fhClass, parent)
+var Structr = function (fhClass, parent)
 {
 	if (!parent) parent = Structr.fh();
 
@@ -459,3 +459,5 @@ Structr.fh = function(that)
     
     return that;
 }
+
+if(exports) exports.Structr = Structr;
