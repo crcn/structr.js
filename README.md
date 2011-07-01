@@ -197,7 +197,7 @@ Custom modifiers are considered metadata:
 	
 ###Bindable Metadata
 
-To add. Makes a property bindable for change. Psuedocode example:
+To add. Makes a property bindable for change. Psuedocode:
 
 	var Person = Structr({
 		
@@ -225,7 +225,7 @@ To add. Makes a property bindable for change. Psuedocode example:
 	
 ###Setting Metadata
 
-To add. Easy way to store settings on the user's computer.
+To add. Easy way to store settings on the user's computer. Psuedocode:
 
 	var User = Structr({
 	
@@ -248,14 +248,14 @@ To add. Easy way to store settings on the user's computer.
 	var u = new User();
 	
 	//this gets passed once
-	if(!user.accountInfo)
+	if(!u.accountInfo)
 	{
 		u.login();
 	}
 	else
 	{
 		//pulled from local computer
-		alert(user.accountInfo.name);
+		alert(u.accountInfo.name);
 	}
 	
 	
