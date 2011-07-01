@@ -240,14 +240,14 @@ To add. Easy way to store settings on the user's computer.
 	
 	var u = new User();
 	
+	//this gets passed once
 	if(!user.accountInfo)
 	{
-		
 		u.login();
 	}
 	else
 	{
-		//pulled from cookie
+		//pulled from local computer
 		alert(user.accountInfo.name);
 	}
 	
