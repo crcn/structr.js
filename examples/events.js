@@ -95,7 +95,7 @@ em.on('sayHello', function(value)
 em.on('sayHello', function(value)
 {
     alert('Hello '+value);
-});
+});``1
 
 
 em.emit('sayHello', 'craig');
