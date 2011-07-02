@@ -65,7 +65,7 @@ Structr.copy = function (from, to)
 };
 
 Structr.setPrivate = function (that, property, value)
-{                                                    
+{                                                                        
 	//set the new private value once things are clear
 	that.__private[property] = value;
 };     
@@ -73,7 +73,7 @@ Structr.setPrivate = function (that, property, value)
 //sets a new property to target object
 Structr.setNewProperty = function (that, property, value)
 {
-	Structr.setPrivate(that[property] = value, property, value);
+	Structr.setPrivate(that, property, that[property] = value);
 };    
 
 //returns a method owned by an object
