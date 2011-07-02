@@ -65,12 +65,6 @@ Structr.copy = function (from, to)
 };
 
 
-//sets a new property to target object
-Structr.setNewProperty = function (that, property, value)
-{                                          
-	that.__private[property] = that[property] = value
-};    
-
 //returns a method owned by an object
 Structr.getMethod = function (that, property)
 {
@@ -99,7 +93,7 @@ Structr.findProperties = function (target, modifier)
 	return props;
 };
 
-Structr.getNArgs = function(func)
+Structr.nArgs = function(func)
 {
 	var inf = func.toString().replace(/\{[\W\S]+\}/g, '').match(/\w+(?=[,\)])/g);
 	return inf ? inf.length :0;
@@ -123,7 +117,7 @@ Structr.setOverloadedMethod = function(that, property, func, nArgs)
 	
 	if(func.overloaded) return funcsByNArgs;
 	
-	funcsByNArgs[nArgs || Structr.getNArgs(func)] = func;
+	funcsByNArgs[nArgs || Structr.nArgs(func)] = func;
 	
 	return funcsByNArgs;
 }
@@ -143,7 +137,7 @@ Structr.modifiers =  {
 		if(oldMethod.overloaded)
 		{
 			var overloadedMethod = oldMethod,
-				nArgs = Structr.getNArgs(newMethod);
+				nArgs = Structr.nArgs(newMethod);
 			parentMethod = Structr.getOverloadedMethod(that, property, nArgs);
 		}
 		
@@ -338,7 +332,7 @@ Structr.extend = function (from, to)
 		
 		usedProperties[propertyName] = 1;
 
-		Structr.setNewProperty(that, propertyName, value);
+		that.__private[propertyName] = that[propertyName] = value;
 	}
 
 	//if the parent constructor exists, and the child constructor IS the parent constructor, it means
