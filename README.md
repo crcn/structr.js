@@ -91,12 +91,6 @@ Using Structr
 	tiramisu.ingredients();
 	pasta.ingredients();
 
-Properties
-----------
-
-### _super
-
-References the parent class method if override is provided.
 
 Modifiers
 ---------      
