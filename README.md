@@ -1,12 +1,13 @@
 Structr -  Structure for Javascript            
 ======================================== 
+
 Structr is a framework with the following goals:
                                                
 * Lightweight.
 * Provide as few new concepts as possible coming from OOP.
 * Easy to learn.
 * Help develop re-useable, clean, and consistent code.              
-* Reduce the amount of reduntant/boilerplate code.         
+* Reduce the amount of reduntant/boilerplate code.  
 
 Supports:        
                                              
