@@ -146,14 +146,14 @@ Overloading methods allows you to write polymorphic functions which are mapped o
 
 		'override second sayHello': function()
 		{
-			return 'Hello '+this._name+'. How are you doing today?';
+			return 'Hello '+this._name+', how are you doing today?';
 		}
 	});
 
 	var p = new SubPerson();
 	p.sayHello('Craig', function(message)
 	{
-		alert(message);
+		alert(message); //Hello Craig. how are you doing today? Do you like italian food?
 	});
 
 ### Static Keyword 
@@ -221,7 +221,7 @@ Both Implicit / Explicit methods are supported, however implicit getters & sette
 Metadata 
 --------
 
-Custom modifiers are considered metadata. They allow you to identify how specific methods should be handled.
+Custom modifiers are considered metadata. Use them to identify how specific methods should be handled.
 
 	var MetadataTestClass = Structr({
 		
