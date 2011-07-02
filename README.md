@@ -13,6 +13,7 @@ Supports:
                                              
 * _super                                     
 * inheritance      
+* overloading methods
 * Implicit / Explicit getters & setters
 * Override, and Static       
 * metadata      
@@ -118,7 +119,50 @@ Faster if you don't plan on using _super.
 	{
 		//cannot access _super __construct
 	}
-    
+	
+	
+### Overloading Methods (Experimental)
+
+Overloading methods allows you to write polymorphic functions which are mapped out depending on the number of parameters used. You must provide your own identifier (it could be anything) for each overloaded method, otherwise you'll simply be overwriting methods. 
+
+	var Person = Structr({
+
+		'sayHello': function(name, callback)
+		{
+			this._name = name;
+			this.sayHello(callback);
+		},
+
+		'2 sayHello': function(callback)
+		{
+			callback(this.sayHello());
+		},
+
+		'3 sayHello': function()
+		{
+			return 'Hello '+this._name;
+		}
+	});
+
+	var SubPerson = Person.extend({
+
+		'override 1 sayHello': function(callback)
+		{
+			callback(this.sayHello()+' Do you like italian food?');
+		},
+
+		'override sayHello': function()
+		{
+			return 'Hello '+this._name+'. How are you doing today?';
+		}
+	});
+
+	var p = new SubPerson();
+	p.sayHello('Craig', function(message)
+	{
+		alert(message);
+	});
+
 ### Static Keyword 
 
 Properties, and methods set to the class versus objects instantiated.
