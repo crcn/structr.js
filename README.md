@@ -16,7 +16,9 @@ Supports:
 * Implicit / Explicit getters & setters
 * Final, Abstract, Override, and Static       
 * metadata      
-* mixing modifiers. e.g: 'explicit bindable name': function(){}
+* mixing modifiers. e.g: 
+	
+	'explicit bindable name': function(){}
 
 Installation
 ------------
