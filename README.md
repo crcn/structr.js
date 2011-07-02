@@ -139,12 +139,12 @@ Overloading methods allows you to write polymorphic functions which are mapped o
 
 	var SubPerson = Person.extend({
 
-		'override 1 sayHello': function(callback)
+		'override sayHello': function(callback)
 		{
 			callback(this.sayHello()+' Do you like italian food?');
 		},
 
-		'override sayHello': function()
+		'override second sayHello': function()
 		{
 			return 'Hello '+this._name+'. How are you doing today?';
 		}
