@@ -59,5 +59,14 @@ var test3 = new OverloadedSubSubClass('Craig')
 test3.getName('jake', function(name)
 {
 	console.log(name)
-});      
+});  
+
+try
+{
+	//test with undefined param
+	test3.getName('test', undefined);   
+}catch(e)
+{
+	console.log('overloading with undefined set works!')
+}
                           
