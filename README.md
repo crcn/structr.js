@@ -183,6 +183,8 @@ Properties, and methods set to the class versus objects instantiated.
 
 ### Getters & Setters   
 
+Both Implicit / Explicit methods are supported, however implicit getters & setters aren't supported in all browsers. Use implicit get/set if you're doing any development under a specific platform such as Node.js, or Appcelerator Titanium.
+
 	var GSTestClass = Structr({
 	
 		'explicit explicitValue': {
@@ -226,7 +228,7 @@ Properties, and methods set to the class versus objects instantiated.
 Metadata 
 --------
 
-Custom modifiers are considered metadata:
+Custom modifiers are considered metadata. They allow you to identify how specific methods should be handled.
 
 	var MetadataTestClass = Structr({
 		
@@ -325,6 +327,8 @@ E.g:
 	});
 	
 * Wrap methods / properties in single, or double quotes. 
+
+* Avoid the over-use of override, or overloaded methods.
 
 
 	
