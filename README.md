@@ -14,7 +14,7 @@ Supports:
 * _super                                     
 * inheritance      
 * Implicit / Explicit getters & setters
-* Final, Abstract, Override, and Static       
+* Override, and Static       
 * metadata      
 * mixing modifiers. e.g: 'explicit bindable name': function(){}          
 	
@@ -118,18 +118,6 @@ Faster if you don't plan on using _super.
 	{
 		//cannot access _super __construct
 	}
-  
-### Final Methods 
-
-Final methods *cannot* be overridden by sub-classes. Otherwise an exception is thrown.
-
-	'final getName': function(){}
-
-### Abstract Methods
-
-Abstract methods *must* be overridden by sub-classes. Otherwise an exception is thrown.
-	
-	'abstract getName': function(){}
     
 ### Static Keyword 
 
