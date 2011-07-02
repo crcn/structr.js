@@ -10,13 +10,12 @@ Structr is a framework that aims to:
 * Combine suplemented patterns used in Javascript in an easy to use form.        
 
 Supports:        
-
+                                             
+* _super                                     
+* inheritance      
 * Implicit / Explicit getters & setters
-* Final & Abstract methods
-* _super
-* override, static, keywords 
-* metadata     
-* inheritance
+* Final, Abstract, Override, and Static       
+* metadata      
 * mixing modifiers. e.g: 'explicit bindable name': function(){}
 
 Installation
