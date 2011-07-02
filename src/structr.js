@@ -14,12 +14,12 @@ var Structr = function (fhClass, parent)
 	//allow for easy extending.
 	that.__construct.extend = function(child)
 	{
-		return Structr.closure(child, that);
+		return Structr(child, that);
 	};
 
 	//return the constructor
 	return that.__construct;
-};
+Structr};
 
 Structr.copy = function (from, to)
 {
@@ -64,16 +64,11 @@ Structr.copy = function (from, to)
 	return to;
 };
 
-Structr.setPrivate = function (that, property, value)
-{                                                                        
-	//set the new private value once things are clear
-	that.__private[property] = value;
-};     
 
 //sets a new property to target object
 Structr.setNewProperty = function (that, property, value)
-{
-	Structr.setPrivate(that, property, that[property] = value);
+{                                          
+	that.__private[property] = that[property] = value
 };    
 
 //returns a method owned by an object
@@ -104,6 +99,35 @@ Structr.findProperties = function (target, modifier)
 	return props;
 };
 
+Structr.getNArgs = function(func)
+{
+	var inf = func.toString().replace(/\{[\W\S]+\}/g, '').match(/\w+(?=[,\)])/g);
+	return inf ? inf.length :0;
+}
+
+Structr.getFuncsByNArgs = function(that, property)
+{
+	return that.__private['overload::' + property] || (that.__private['overload::' + property] = {});
+}
+
+Structr.getOverloadedMethod = function(that, property, nArgs)
+{
+	var funcsByNArgs = Structr.getFuncsByNArgs(that, property);
+	
+	return funcsByNArgs[nArgs];
+}
+
+Structr.setOverloadedMethod = function(that, property, func, nArgs)
+{
+	var funcsByNArgs = Structr.getFuncsByNArgs(that, property);
+	
+	if(func.overloaded) return funcsByNArgs;
+	
+	funcsByNArgs[nArgs || Structr.getNArgs(func)] = func;
+	
+	return funcsByNArgs;
+}
+
 //modifies how properties behave in a class
 Structr.modifiers =  {
 
@@ -113,30 +137,31 @@ Structr.modifiers =  {
 
 	m_override: function (that, property, newMethod)
 	{
-		var oldMethod = (that.__private && that.__private[property]) || that[property] || function (){}
-
-		return function ()
+		var oldMethod = (that.__private && that.__private[property]) || that[property] || function (){},
+			parentMethod = oldMethod;
+		
+		if(oldMethod.overloaded)
 		{
-			this._super = oldMethod;
+			var overloadedMethod = oldMethod,
+				nArgs = Structr.getNArgs(newMethod);
+			parentMethod = Structr.getOverloadedMethod(that, property, nArgs);
+		}
+		
+		//wrap the method so we can access the parent overloaded function
+		var wrappedMethod = function ()
+		{
+			this._super = parentMethod;
 			var ret = newMethod.apply(this, arguments);
 			delete this._super;
 			return ret;
 		}
-	},
-
-	/**
-	* overrides given method, but automatically calls super
-	*/
-
-	m_decorate: function (that, property, newMethod)
-	{
-		var oldMethod = (that.__private && that.__private[property]) || that[property] || function (){}
-
-		return function()
+		
+		if(oldMethod.overloaded)
 		{
-			oldMethod.apply(this, arguments);
-			return newMethod.apply(this, arguments);
+			return Structr.modifiers.m_overload(that, property, wrappedMethod, nArgs);
 		}
+		
+		return wrappedMethod;
 	},
 
 
@@ -203,10 +228,27 @@ Structr.modifiers =  {
 	m_implicit: function (that, property, egs)
 	{
 		//keep the original function available so we can override it
-		Structr.setPrivate(that, property, egs);
+		that.__private[property] = egs;
 
 		that.__defineGetter__(property, egs);
 		that.__defineSetter__(property, egs);
+	},
+	
+	/**
+	 */
+	
+	m_overload: function (that, property, value, nArgs)
+	{                    
+		var funcsByNArgs = Structr.setOverloadedMethod(that, property, value, nArgs);
+				
+		var multiFunc = function()
+		{                                
+			return funcsByNArgs[arguments.length].apply(this, arguments);   
+		}    
+		
+		multiFunc.overloaded = true;                                          
+		
+		return multiFunc; 
 	}
 }               
 
@@ -229,8 +271,7 @@ Structr.extend = function (from, to)
 
 	Structr.copy(from, that);
 
-	var availModifiers = Structr.modifier, 
-	usedProperties = {},
+	var usedProperties = {},
 	property;
 
 
@@ -243,9 +284,8 @@ Structr.extend = function (from, to)
 		propertyName = propModifiersAr.pop(),
 
 		modifierList = that.__private.propertyModifiers[propertyName] || (that.__private.propertyModifiers[propertyName] = []);
-
-
-		usedProperties[propertyName] = 1;
+                                
+             
 
 		if (propModifiersAr.length) 
 		{
@@ -260,29 +300,23 @@ Structr.extend = function (from, to)
 				{
 					modifierList.push(modifier);
 				}
-			}
+			}                   
 
 			//if explicit, or implicit modifiers are set, then we need an explicit modifier first
 			if (propModifiers.m_explicit || propModifiers.m_implicit) 
 			{
-				value = availModifiers.m_explicit(that, propertyName, value);
+				value = Structr.modifiers.m_explicit(that, propertyName, value);
 			}
 
-			//decorate, or override. NOT both.
 			if (propModifiers.m_override) 
 			{
-				value = availModifiers.m_override(that, propertyName, value);
-			}
-			else 
-			if (propModifiers.m_decorate) 
-			{
-				value = availModifiers.m_decorate(that, propertyName, value);
+				value = Structr.modifiers.m_override(that, propertyName, value);
 			}
 
 			if (propModifiers.m_implicit) 
 			{
 				//getter is set, don't continue.
-				availModifiers.m_implicit(that, propertyName, value);
+				Structr.modifiers.m_implicit(that, propertyName, value);
 				continue;
 			}
 		}
@@ -291,6 +325,18 @@ Structr.extend = function (from, to)
 		{
 			value[modifierList[j]] = true;
 		}
+		
+		if(usedProperties[propertyName])
+		{                       
+			var oldValue = that[propertyName];
+			
+			//first property will NOT be overloaded, so we need to check it here
+			if(!oldValue.overloaded) Structr.modifiers.m_overload(that, propertyName, oldValue);
+			 
+			value = Structr.modifiers.m_overload(that, propertyName, value);
+		}	
+		
+		usedProperties[propertyName] = 1;
 
 		Structr.setNewProperty(that, propertyName, value);
 	}
@@ -300,7 +346,10 @@ Structr.extend = function (from, to)
 	//call the parent constructor when the child is instantiated, otherwise it'll be the same class essentially (setting proto)
 	if (that.__construct && from.__construct && that.__construct == from.__construct)
 	{
-		that.__construct = Structr.modifier.m_decorate(that, '__construct', function() { });
+		that.__construct = Structr.modifiers.m_override(that, '__construct', function()
+		{
+			this._super.apply(this, arguments);
+		});
 	}
 
      
