@@ -1,10 +1,22 @@
 Structr -  Structure for Javascript            
 ======================================== 
 Structr is a framework that aims to:
+                                               
+* Lightweight.
+* Provide as few new concepts as possible coming from OOP. Learning it should be easy.
+* Help develop re-useable, clean, and consistent code.
+* Be fun, and easy to work with.                                                 
+* Reduce the amount of reduntant code.   
+* Combine suplemented patterns used in Javascript in an easy to use form.        
 
-* Provide a super low learning curve coming from OO background. 
-* Help javascript developers write re-useable, clean, and consistent code.
-* Be fun, and easy to work with.
+Supports:
+* Implicit / Explicit getters & setters
+* Final & Abstract methods
+* _super
+* override, static, keywords 
+* metadata     
+* inheritance
+* mixing modifiers. e.g: 'explicit bindable name': function(){}
 
 Installation
 ------------
