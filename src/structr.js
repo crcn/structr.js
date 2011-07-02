@@ -17,12 +17,6 @@ var Structr = function (fhClass, parent)
 		return Structr.closure(child, that);
 	}
 
-	that.__construct.replace = function(target)
-	{
-		Structr.replace(that, target);
-	}
-	
-
 	//return the constructor
 	return that.__construct;
 }
@@ -69,19 +63,7 @@ Structr.copy = function(from, to)
 }
 
 Structr.setPrivate = function(that, property, value)
-{
-
-    //grab the PRIVATE property, which will always contain the physical function
-    var oldProperty = that.__private[property];
-    
-    //if the old property, test it a bit before going on.
-    if (oldProperty) 
-    {
-        if (oldProperty.isFinal) 
-            throw new Error('property "' + property + '" cannot be overridden.');
-        // if(oldProperty.testAbstract) oldProperty.testAbstract(value);
-    }
-    
+{                                                    
     //set the new private value once things are clear
     that.__private[property] = value;
 }   
@@ -96,9 +78,7 @@ Structr.getNArgs = function(func)
 //sets a new property to target object
 Structr.setNewProperty = function(that, property, value)
 {
-    Structr.setPrivate(that, property, value);
-    
-    that[property] = value;
+    Structr.setPrivate(that[property] = value, property, value);
 }    
             
 //returns a method owned by an object
@@ -178,35 +158,7 @@ Structr.modifiers =  {
             return newMethod.apply(this, arguments);
         }
     },
-    
-  	/**
-  	 * makes sure sub-class conforms to super
-  	 */
-	
-    m_abstract: function(that, property, newMethod)
-    {
-        var nargs = Structr.getNArgs(newMethod);
         
-        newMethod.testAbstract = function(newValue)
-        {
-            var onargs = Structr.getNArgs(newValue);
-            if (nargs != onargs) 
-                throw new Error('overridden method "' + property + '" has ' + onargs + ' arguments, expected ' + nargs);
-            that[property] = newValue;
-        }
-        
-        return newMethod;
-    },
-    
-	/**
-	 * marks properties which CANNOT be overridden
-	 */
-	
-    m_final: function(that, property, newMethod)
-    {
-        newMethod.isFinal = true;
-        return newMethod;
-    },
 	
     /**
      * getter / setter which are physical functions: e.g: test.myName(), and test.myName('craig')
@@ -294,8 +246,7 @@ Structr.extend = function(from, to)
 		}
     };
     
-    if (to instanceof Function) 
-        to = to();
+    if (to instanceof Function)  to = to();
     
     Structr.copy(from, that);
     
@@ -307,7 +258,7 @@ Structr.extend = function(from, to)
         var value = to[property];
 
         
-        var propModifiersAr = property.split(' '), //property is at the end of the modifiers. e.g: abstract testProperty
+        var propModifiersAr = property.split(' '), //property is at the end of the modifiers. e.g: override bindable testProperty
 		propertyName = propModifiersAr.pop(),
 
 		modifierList = that.__private.propertyModifiers[propertyName] || (that.__private.propertyModifiers[propertyName] = []);
@@ -329,20 +280,7 @@ Structr.extend = function(from, to)
 					modifierList.push(modifier);
 				}
 			}
-			
-
-			//abstract? children MUST override this, and the parameters must match
-			if (propModifiers.m_abstract) 
-			{
-				value = availModifiers.m_abstract(that, propertyName, value);
-			}
-
-			//final set? sub-classes won't be able to override this...
-			if (propModifiers.m_final) 
-			{
-				value = availModifiers.m_final(that, propertyName, value);
-			}
-
+			  
 			//if explicit, or implicit modifiers are set, then we need an explicit modifier first
 			if (propModifiers.m_explicit || propModifiers.m_implicit) 
 			{
@@ -375,7 +313,6 @@ Structr.extend = function(from, to)
 		
         Structr.setNewProperty(that, propertyName, value);
     }
-
 	
 	//if the parent constructor exists, and the child constructor IS the parent constructor, it means
 	//the PARENT constructor was defined, and the  CHILD constructor wasn't, so the parent prop was copied over. We need to create a new function, and 
@@ -385,7 +322,8 @@ Structr.extend = function(from, to)
 		that.__construct = Structr.modifier.m_decorate(that, '__construct', function() { });
 	}
     
-
+      
+	//apply the static props
     for (var propertyName in that) 
     {
 		var value = that[propertyName];
@@ -395,29 +333,14 @@ Structr.extend = function(from, to)
 		{
 			that.__construct[propertyName] = value;
 			delete that[propertyName];
-		}
-		
-		
-        if (usedProperties[propertyName]) 
-            continue;
-        
-        
-        //value could be null
-        if (value && value.testAbstract) 
-            throw new Error('"' + propertyName + '" must be overridden.')
+		}                                                                  
     }
 	
     
     
     return that;
 }
-
-                                  
-//replaces the properties in the target
-Structr.replace = function(that, target)
-{
-    Structr.copy(Structr.extend(that, target), that);
-}   
+         
    
 //really.. this isn't the greatest idea if a LOT of objects
 //are being allocated in a short perioud of time. use the closure
@@ -443,14 +366,7 @@ Structr.fh = function(that)
 	that.copyTo = function(target)
 	{
 		Structr.copy(this, target, true);
-	}
-    
-    //replaces that data with new dat. beats writing: MyClass = MyClass.extend(...);
-    that.replace = function(target)
-    {
-        return Structr.replace(this, target);
-    }
-    
+	}   
     
     return that;
 }
