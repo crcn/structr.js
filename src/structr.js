@@ -19,7 +19,7 @@ var Structr = function (fhClass, parent)
 
 	//return the constructor
 	return that.__construct;
-};
+}; 
 
 Structr.copy = function (from, to)
 {
@@ -394,4 +394,13 @@ Structr.fh = function (that)
 	return that;
 }
 
-if (this.exports) exports.Structr = Structr;
+//for the spicekit
+if(sk) sk.Structr = Structr;
+
+try
+{
+	exports.Structr = Structr; 
+}catch(e)
+{
+	
+}
