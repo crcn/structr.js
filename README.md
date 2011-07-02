@@ -9,7 +9,8 @@ Structr is a framework that aims to:
 * Reduce the amount of reduntant code.   
 * Combine suplemented patterns used in Javascript in an easy to use form.        
 
-Supports:
+Supports:        
+
 * Implicit / Explicit getters & setters
 * Final & Abstract methods
 * _super
