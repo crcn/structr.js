@@ -32,17 +32,17 @@ Using Structr
  
 	var Recipe = Structr({  
 		
-		'__construct': function(name)
+		'__construct': function (name)
 		{
 			this._name = name;
 		},                
 		
-		'name': function()
+		'name': function ()
 		{
 			return this._name;
 		},
 		
-		'ingredients': function()
+		'ingredients': function ()
 		{
 			alert('This is going to be tasty...');
 		}
@@ -57,12 +57,12 @@ Using Structr
 
 	var TiramisuRecipe = Recipe.extend({
 
-		'override __construct': function()
+		'override __construct': function ()
 		{
 			this._super('Tiramisu');
 		},
 		
-		'override ingredients': function()
+		'override ingredients': function ()
 		{
 			this._super();
 			
@@ -72,12 +72,12 @@ Using Structr
 	
 	var PastaRecipe = Recipe.extend({
 		
-		'override __construct': function()
+		'override __construct': function ()
 		{
 			this._super('Pasta');
 		},
 		
-		'override ingredients': function()
+		'override ingredients': function ()
 		{
 			this._super();
 			
@@ -99,7 +99,7 @@ Modifiers
 
 Methods overridden have access to the _super property.
 
-	'override __construct': function()
+	'override __construct': function ()
 	{
 		this._super();
 	}
@@ -108,7 +108,7 @@ Methods overridden have access to the _super property.
    
 Faster if you don't plan on using _super.
 
-	'__construct': function()
+	'__construct': function ()
 	{
 		//cannot access _super __construct
 	}
@@ -120,33 +120,33 @@ Overloading methods allows you to write polymorphic functions which are mapped o
 
 	var Person = Structr({
 
-		'sayHello': function(name, callback)
+		'sayHello': function (name, callback)
 		{
 			this._name = name;
 			this.sayHello(callback);
 		},
 
-		'2 sayHello': function(callback)
+		'2 sayHello': function (callback)
 		{
 			callback(this.sayHello());
 		},
 
-		'3 sayHello': function()
+		'3 sayHello': function ()
 		{
-			return 'Hello '+this._name;
+			return 'Hello ' + this._name;
 		}
 	});
 
 	var SubPerson = Person.extend({
 
-		'override sayHello': function(callback)
+		'override sayHello': function (callback)
 		{
-			callback(this.sayHello()+' Do you like italian food?');
+			callback(this.sayHello() + ' Do you like italian food?');
 		},
 
-		'override second sayHello': function()
+		'override second sayHello': function ()
 		{
-			return 'Hello '+this._name+', how are you doing today?';
+			return 'Hello ' + this._name + ', how are you doing today?';
 		}
 	});
 
@@ -162,7 +162,7 @@ Properties, and methods set to the class versus objects instantiated.
 
 	var Singleton = Structr({
 		
-		'static getInstance': function()
+		'static getInstance': function ()
 		{
 			return this._instance || (this._instance = new Singleton());
 		}
@@ -181,22 +181,22 @@ Both Implicit / Explicit methods are supported, however implicit getters & sette
 	var GSTestClass = Structr({
 	
 		'explicit explicitValue': {
-			get: function()
+			get: function ()
 			{
 				return this._name;
 			},
-			set: function(value)
+			set: function (value)
 			{
 				this._name = value;
 			}
 		},
 		
 		'implicit implicitValue': {
-			get: function()
+			get: function ()
 			{
 				return this._name;
 			},
-			set: function(value)
+			set: function (value)
 			{
 				this._name = value;
 			}
@@ -225,7 +225,7 @@ Custom modifiers are considered metadata. Use them to identify how specific meth
 
 	var MetadataTestClass = Structr({
 		
-		'myCustomMetadata test: function()
+		'myCustomMetadata test': function ()
 		{
 			return 'Hello Test';
 		}
@@ -269,12 +269,12 @@ To add. Easy way to store settings on the user's computer. Psuedocode:
 
 	var User = Structr({
 	
-		'__construct': function()
+		'__construct': function ()
 		{
 			SettingManager.apply(this);
 		},
 		
-		'login': function()
+		'login': function ()
 		{
 			
 			//set the account info which will be saved as a cookie
@@ -308,12 +308,12 @@ E.g:
 
 	var SomeClass = Structr({
 		
-		'__construct': function()
+		'__construct': function ()
 		{
 			this._myPrivateVariable = 'some private value';
 		},
 		
-		'_myPrivateMethod': function()
+		'_myPrivateMethod': function ()
 		{
 			//private stuff here
 		}
