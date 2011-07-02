@@ -71,7 +71,9 @@ var EventEmitter = Structr({
 			lists[i].apply(this, args);
 		}     
 	}
-});
+});      
+
+
 
 
 
