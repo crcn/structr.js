@@ -395,7 +395,7 @@ Structr.fh = function (that)
 }
 
 //for the spicekit
-if(sk) sk.Structr = Structr;
+if(this.sk) sk.Structr = Structr;
 
 try
 {
