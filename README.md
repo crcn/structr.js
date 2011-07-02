@@ -3,11 +3,11 @@ Structr -  Structure for Javascript
 Structr is a framework that aims to:
                                                
 * Lightweight.
-* Provide as few new concepts as possible coming from OOP. Learning it should be easy.
+* Provide as few new concepts as possible coming from OOP.
+* Easy to learn.
 * Help develop re-useable, clean, and consistent code.
 * Be fun, and easy to work with.                                                 
-* Reduce the amount of reduntant code.   
-* Combine suplemented patterns used in Javascript in an easy to use form.        
+* Reduce the amount of reduntant/boilerplate code.         
 
 Supports:        
                                              
