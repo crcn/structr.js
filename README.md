@@ -232,7 +232,7 @@ Custom modifiers are considered metadata. Use them to identify how specific meth
 	}));
 	
 	
-	console.log(MetadataTestClass.prototype.test.bindable); //true
+	console.log(MetadataTestClass.prototype.test.myCustomMetadata); //true
 	
 	
 ###Bindable Metadata
