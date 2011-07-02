@@ -1,6 +1,6 @@
 var Structr = function (fhClass, parent)
 {
-	if (!parent) parent = Structr.fh();
+	if (!parent) parent = Structr.fh({});
 
 	var that = Structr.extend(parent, fhClass);
 
@@ -19,7 +19,7 @@ var Structr = function (fhClass, parent)
 
 	//return the constructor
 	return that.__construct;
-Structr};
+};
 
 Structr.copy = function (from, to)
 {
@@ -331,9 +331,9 @@ Structr.extend = function (from, to)
 			var oldValue = that[propertyName];
 			
 			//first property will NOT be overloaded, so we need to check it here
-			if(!oldValue.overloaded) Structr.modifiers.m_overload(that, propertyName, oldValue);
+			if(!oldValue.overloaded) Structr.modifiers.m_overload(that, propertyName, oldValue, undefined);
 			 
-			value = Structr.modifiers.m_overload(that, propertyName, value);
+			value = Structr.modifiers.m_overload(that, propertyName, value, undefined);
 		}	
 		
 		usedProperties[propertyName] = 1;
@@ -379,9 +379,6 @@ Structr.extend = function (from, to)
 //method instead. This is great for objects which are instantiated ONCE, or a couple of times :P.
 Structr.fh = function (that)
 {
-	if (!that) 
-	that = {};
-
 	that = Structr.extend({}, that);
 
 	that.getMethod = function (property)
@@ -397,7 +394,7 @@ Structr.fh = function (that)
 	//copy to target object
 	that.copyTo = function (target)
 	{
-		Structr.copy(this, target, true);
+		Structr.copy(this, target);
 	}   
 
 	return that;
