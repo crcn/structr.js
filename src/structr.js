@@ -236,8 +236,22 @@ Structr.modifiers =  {
 		var funcsByNArgs = Structr.setOverloadedMethod(that, property, value, nArgs);
 				
 		var multiFunc = function()
-		{                                
-			return funcsByNArgs[arguments.length].apply(this, arguments);   
+		{                       
+			try
+			{
+				return funcsByNArgs[arguments.length].apply(this, arguments);   
+			}
+			catch(e)
+			{
+				var expected = [];
+				
+				for(var sizes in funcsByNArgs)
+				{
+					expected.push(sizes);
+				}
+				
+				throw Error('Expected '+expected.join(',')+' parameters, got '+ arguments.length+'.');
+			}
 		}    
 		
 		multiFunc.overloaded = true;                                          
