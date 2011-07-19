@@ -1,0 +1,1 @@
+exports.Structr = require('./src/structr.js').Structr;

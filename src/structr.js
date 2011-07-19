@@ -165,7 +165,7 @@ Structr.modifiers =  {
 
 	m_explicit: function (that, property, gs)
 	{
-		var pprop = '_gs::'+property;
+		var pprop = '__'+property;
 
 		//if GS is not defined, then set defaults.
 		if (typeof gs != 'object') 
@@ -236,12 +236,14 @@ Structr.modifiers =  {
 		var funcsByNArgs = Structr.setOverloadedMethod(that, property, value, nArgs);
 				
 		var multiFunc = function()
-		{                       
-			try
+		{          
+			var func = funcsByNArgs[arguments.length];
+			
+			if(func)
 			{
-				return funcsByNArgs[arguments.length].apply(this, arguments);   
-			}
-			catch(e)
+				return funcsByNArgs[arguments.length].apply(this, arguments);
+			}             
+			else
 			{
 				var expected = [];
 				
@@ -250,7 +252,7 @@ Structr.modifiers =  {
 					expected.push(sizes);
 				}
 				
-				throw Error('Expected '+expected.join(',')+' parameters, got '+ arguments.length+'.');
+				throw new Error('Expected '+expected.join(',')+' parameters, got '+arguments.length+'.');
 			}
 		}    
 		

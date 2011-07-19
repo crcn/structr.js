@@ -8,6 +8,7 @@ Structr is a framework with the following goals:
 * Easy to learn.
 * Help develop re-useable, clean, and consistent code.              
 * Reduce the amount of reduntant/boilerplate code.  
+	
 
 Supports:        
                                              
@@ -321,9 +322,14 @@ E.g:
 	});
 	
 * Wrap methods / properties in single, or double quotes. 
-
 * Avoid the over-use of override, or overloaded methods.
+* Only use Structr where you would create prototyped classes.
 
+
+To Do:
+------
+
+- change _super(...) to _super({ method: [args]  }), or _super('method').call(...);
 
 	
 
