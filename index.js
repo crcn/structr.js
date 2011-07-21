@@ -1,1 +1,1 @@
-exports.Structr = require('./src/structr.js').Structr;
+module.exports = require('./src/structr.js');
