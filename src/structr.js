@@ -409,14 +409,5 @@ Structr.fh = function (that)
 
 	return that;
 }
-
-//for the spicekit
-if(this.sk) sk.Structr = Structr;
-
-try
-{
-	exports.Structr = Structr; 
-}catch(e)
-{
-	
-}
+                                        
+exports.Structr = Structr;
