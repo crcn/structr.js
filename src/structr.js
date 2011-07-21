@@ -410,4 +410,4 @@ Structr.fh = function (that)
 	return that;
 }
                                         
-exports.Structr = Structr;
+module.exports = Structr;
