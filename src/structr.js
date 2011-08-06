@@ -21,9 +21,15 @@ var Structr = function (fhClass, parent)
 	return that.__construct;
 }; 
 
-Structr.copy = function (from, to)
+Structr.copy = function (from, to, lite)
 {
-	if (!to) to = {};  
+	if(typeof to == 'boolean')
+	{
+		lite = to;
+		to = undefined;
+	}
+	
+	if (!to) to = from instanceof Array ? [] : {};  
 	
 	var i;
 
@@ -34,7 +40,7 @@ Structr.copy = function (from, to)
 		newValue;
 
 
-		if (typeof fromValue == 'object') 
+		if (!lite && typeof fromValue == 'object') 
 		{
 
 			//if the toValue exists, and the fromValue is the same data type as the TO value, then
@@ -402,9 +408,9 @@ Structr.fh = function (that)
 	}
 
 	//copy to target object
-	that.copyTo = function (target)
+	that.copyTo = function (target, lite)
 	{
-		Structr.copy(this, target);
+		Structr.copy(this, target, lite);
 	}   
 
 	return that;
