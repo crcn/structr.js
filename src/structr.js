@@ -78,7 +78,34 @@ Structr.getMethod = function (that, property)
 	{
 		return that[property].apply(that, arguments);
 	};
-};       
+};     
+
+Structr.wrap = function(that)
+{
+	if(that._wrapped) return that;
+
+	that._wrapped = true;
+
+	function wrap(target)
+	{
+		return function()
+		{
+			return target.apply(that, arguments);
+		}
+	}
+
+	for(var property in that)
+	{
+		var target = that[property];
+			
+		if(typeof target == 'function')
+		{
+			that[property] = wrap(target);
+		}
+	}
+
+	return that;
+}  
 
 //finds all properties with modifiers
 Structr.findProperties = function (target, modifier)
@@ -412,6 +439,12 @@ Structr.fh = function (that)
 	{
 		Structr.copy(this, target, lite);
 	}   
+
+	//wraps the objects methods so this always points to the right place
+	that.wrap = function()
+	{
+		return Structr.wrap(this);
+	}
 
 	return that;
 }
