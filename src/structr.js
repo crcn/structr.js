@@ -39,8 +39,8 @@ Structr.copy = function (from, to, lite)
 		toValue = to[i],
 		newValue;
 
-
-		if (!lite && typeof fromValue == 'object') 
+		//don't copy anything fancy other than objects and arrays. this could really screw classes up, such as dates.... (yuck)
+		if (!lite && typeof fromValue == 'object' && (!fromValue || fromValue.__proto__ == Object.prototype || fromValue.__proto__ == Array.prototype)) 
 		{
 
 			//if the toValue exists, and the fromValue is the same data type as the TO value, then
@@ -56,7 +56,6 @@ Structr.copy = function (from, to, lite)
 				newValue = fromValue instanceof Array ? [] : {};
 			}
 
-			// newValue = value instanceof Array ? [] : {};
 			Structr.copy(fromValue, newValue);
 		}
 		else 
