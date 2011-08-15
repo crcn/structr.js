@@ -11,6 +11,8 @@ var Structr = function (fhClass, parent)
 
 	that.__construct.prototype = that;
 
+
+	if(!that.__construct.extend)
 	//allow for easy extending.
 	that.__construct.extend = function(child)
 	{
@@ -392,6 +394,22 @@ Structr.extend = function (from, to)
 		{
 			this._super.apply(this, arguments);
 		});
+	}
+	else
+	if(!that.__construct)
+	{
+		that.__construct = function() {};
+	}
+
+
+	//copy 
+	for(var property in from.__construct)
+	{
+		if(from.__construct[property]['static'])
+		{
+			that.__construct[property] = from.__construct[property];
+		}
+
 	}
 
      
