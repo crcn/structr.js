@@ -11,7 +11,6 @@ var Structr = function (fhClass, parent)
 
 	that.__construct.prototype = that;
 
-
 	if(!that.__construct.extend)
 	//allow for easy extending.
 	that.__construct.extend = function(child)
