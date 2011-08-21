@@ -80,7 +80,7 @@ Structr.getMethod = function (that, property)
 	};
 };     
 
-Structr.wrap = function(that)
+Structr.wrap = function(that, prop)
 {
 	if(that._wrapped) return that;
 
@@ -92,6 +92,12 @@ Structr.wrap = function(that)
 		{
 			return target.apply(that, arguments);
 		}
+	}
+
+	if(prop)
+	{
+		that[prop] = wrap(target[prop]);
+		return that;	
 	}
 
 	for(var property in that)
@@ -317,7 +323,6 @@ Structr.extend = function (from, to)
 	var usedProperties = {},
 	property;
 
-
 	for(property in to) 
 	{
 		var value = to[property];
@@ -329,7 +334,6 @@ Structr.extend = function (from, to)
 		modifierList = that.__private.propertyModifiers[propertyName] || (that.__private.propertyModifiers[propertyName] = []);
                                 
              
-
 		if (propModifiersAr.length) 
 		{
 			var propModifiers = {};
@@ -404,11 +408,10 @@ Structr.extend = function (from, to)
 	//copy 
 	for(var property in from.__construct)
 	{
-		if(from.__construct[property]['static'])
+		if(from.__construct[property]['static'] && !that[property])
 		{
 			that.__construct[property] = from.__construct[property];
 		}
-
 	}
 
      
@@ -440,6 +443,7 @@ Structr.fh = function (that)
 {
 	that = Structr.extend({}, that);
 
+	//deprecated
 	that.getMethod = function (property)
 	{
 		return Structr.getMethod(this, property);
@@ -457,12 +461,13 @@ Structr.fh = function (that)
 	}   
 
 	//wraps the objects methods so this always points to the right place
-	that.wrap = function()
+	that.wrap = function(property)
 	{
-		return Structr.wrap(this);
+		return Structr.wrap(this, property);
 	}
 
 	return that;
 }
                                         
 module.exports = Structr;
+
