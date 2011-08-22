@@ -347,7 +347,12 @@ Structr.extend = function (from, to)
 				{
 					modifierList.push(modifier);
 				}
-			}                   
+			}      
+			
+			if(propModifiers.m_merge)
+			{
+				value = Structr.copy(from[propertyName], value);
+			}             
 
 			//if explicit, or implicit modifiers are set, then we need an explicit modifier first
 			if (propModifiers.m_explicit || propModifiers.m_implicit) 
