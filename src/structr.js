@@ -1,26 +1,29 @@
-var Structr = function (fhClass, parent)
+var Structr = function (target, parent)
 {
 	if (!parent) parent = Structr.fh({});
 
-	var that = Structr.extend(parent, fhClass);
-
-	if (!that.__construct)
-	{
-		that.__construct = function() { };
-	}
+	var that = Structr.extend.apply(null, [parent].concat(target))
 
 	that.__construct.prototype = that;
 
 	if(!that.__construct.extend)
 	//allow for easy extending.
-	that.__construct.extend = function(child)
+	that.__construct.extend = function()
 	{
-		return Structr(child, that);
+		return Structr(Structr.argsToArray(arguments), that);
 	};
 
 	//return the constructor
 	return that.__construct;
 }; 
+
+
+Structr.argsToArray = function(args)
+{
+	var ar = new Array(args.length);
+	for(var i = args.length; i--;) ar[i] = args[i];
+	return ar;
+}
 
 Structr.copy = function (from, to, lite)
 {
@@ -303,10 +306,18 @@ Structr.modifiers =  {
 
 
 //extends from one class to another. note: the TO object should be the parent. a copy is returned.
-Structr.extend = function (from, to)
+Structr.extend = function ()
 {
-	if (!to) 
+	var from = arguments[0],
 	to = {};
+
+	for(var i = 1, n = arguments.length; i < n; i++)
+	{
+		var obj = arguments[i];
+
+		Structr.copy(obj instanceof Function ? obj() : obj, to);
+	}
+
 
 	var that = {
 		__private: {
@@ -316,7 +327,6 @@ Structr.extend = function (from, to)
 		}
 	};
 
-	if (to instanceof Function)  to = to();
 
 	Structr.copy(from, that);
 
@@ -454,9 +464,9 @@ Structr.fh = function (that)
 		return Structr.getMethod(this, property);
 	}
 
-	that.extend = function (target)
+	that.extend = function ()
 	{
-		return Structr.extend(this, target);
+		return Structr.extend.apply(null, [this].concat(arguments))
 	}
 
 	//copy to target object
