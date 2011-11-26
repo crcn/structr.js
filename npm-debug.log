@@ -1,6 +1,6 @@
 info it worked if it ends with ok
 verbose cli [ 'node', '/usr/local/bin/npm', 'publish', '--force' ]
-info using npm@1.0.105
+info using npm@1.0.106
 info using node@v0.4.12
 verbose config file /Users/craig/.npmrc
 verbose config file /usr/local/etc/npmrc
@@ -20,7 +20,7 @@ ERR! System Darwin 11.2.0
 ERR! command "node" "/usr/local/bin/npm" "publish" "--force"
 ERR! cwd /Users/craig/Dropbox/Developer/Public/Structr
 ERR! node -v v0.4.12
-ERR! npm -v 1.0.105
+ERR! npm -v 1.0.106
 ERR! path package.json
 ERR! code ENOENT
 verbose exit [ 1, true ]
