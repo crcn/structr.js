@@ -18,7 +18,7 @@ ERR!     <npm-@googlegroups.com>
 ERR! 
 ERR! System Darwin 11.2.0
 ERR! command "node" "/usr/local/bin/npm" "publish" "--force"
-ERR! cwd /Users/craig/Dropbox/Developer/Public/Structr
+ERR! cwd /Users/craig/Dropbox/Developer/Public/structr
 ERR! node -v v0.4.12
 ERR! npm -v 1.0.106
 ERR! path package.json
