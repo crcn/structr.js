@@ -26,10 +26,19 @@ var childClazz = clazz.extend({
 	/**
 	 */
 
-	'override sayHello': function() {
+	'override _moreThru -> sayHello': function() {
 		this._super('craig');
 
 		console.log("GOLD");
+	},
+
+	/**
+	 */
+
+	'_moreThru': function()
+	{
+		console.log("THRU")
+		this.next();
 	}
 })
 
