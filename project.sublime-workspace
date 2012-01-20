@@ -27,7 +27,31 @@
 			"file": "lib/index.js",
 			"settings":
 			{
-				"buffer_size": 10349,
+				"buffer_size": 11355,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/tmp/subl stdin LzRuSh.txt",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/craig/Dropbox/Developer/Public/Structr/examples/wrapAround.js",
+			"settings":
+			{
+				"buffer_size": 511,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 6557,
 				"line_ending": "Unix"
 			}
 		}
@@ -75,6 +99,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"getMiddleware",
+			"property",
+			"wrapAround",
 			"onEnd",
 			"register",
 			"_rem",
@@ -106,7 +133,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
@@ -166,15 +193,15 @@
 					"file": "lib/index.js",
 					"settings":
 					{
-						"buffer_size": 10349,
+						"buffer_size": 11355,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								582,
-								582
+								6138,
+								6138
 							]
 						],
 						"settings":
@@ -183,7 +210,86 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 240.0,
+						"translation.y": 4321.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/tmp/subl stdin LzRuSh.txt",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/craig/Dropbox/Developer/Public/Structr/examples/wrapAround.js",
+					"settings":
+					{
+						"buffer_size": 511,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								347,
+								347
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "README.md",
+					"settings":
+					{
+						"buffer_size": 6557,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1135,
+								1135
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 300.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

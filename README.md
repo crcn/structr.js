@@ -50,14 +50,6 @@ var Recipe = Structr({
 	'ingredients': function ()
 	{
 		alert('This is going to be tasty...');
-	},
-
-	'_prepare -> make': function() {
-		console.log("making the cake!");
-	},
-
-	'_prepare': function() {
-		this.next();
 	}
 });                      
 
