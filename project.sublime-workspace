@@ -27,7 +27,15 @@
 			"file": "lib/index.js",
 			"settings":
 			{
-				"buffer_size": 11355,
+				"buffer_size": 11886,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "examples/proto.js",
+			"settings":
+			{
+				"buffer_size": 352,
 				"line_ending": "Unix"
 			}
 		},
@@ -40,7 +48,7 @@
 			}
 		},
 		{
-			"file": "/Users/craig/Dropbox/Developer/Public/Structr/examples/wrapAround.js",
+			"file": "examples/wrapAround.js",
 			"settings":
 			{
 				"buffer_size": 511,
@@ -48,10 +56,18 @@
 			}
 		},
 		{
+			"file": "/tmp/subl stdin 3nCWEX.txt",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 6557,
+				"buffer_size": 6437,
 				"line_ending": "Unix"
 			}
 		}
@@ -99,6 +115,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Structr.copy",
+			"wrap",
+			"extend",
 			"getMiddleware",
 			"property",
 			"wrapAround",
@@ -133,7 +152,6 @@
 	"groups":
 	[
 		{
-			"selected": 4,
 			"sheets":
 			[
 				{
@@ -193,15 +211,15 @@
 					"file": "lib/index.js",
 					"settings":
 					{
-						"buffer_size": 11355,
+						"buffer_size": 11886,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6138,
-								6138
+								10536,
+								10536
 							]
 						],
 						"settings":
@@ -210,13 +228,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 4321.0,
+						"translation.y": 5204.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
+					"file": "examples/proto.js",
+					"settings":
+					{
+						"buffer_size": 352,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								146,
+								146
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
 					"file": "/tmp/subl stdin LzRuSh.txt",
 					"settings":
 					{
@@ -242,8 +286,8 @@
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "/Users/craig/Dropbox/Developer/Public/Structr/examples/wrapAround.js",
+					"buffer": 5,
+					"file": "examples/wrapAround.js",
 					"settings":
 					{
 						"buffer_size": 511,
@@ -259,7 +303,8 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -268,19 +313,45 @@
 					"type": "text"
 				},
 				{
-					"buffer": 5,
-					"file": "README.md",
+					"buffer": 6,
+					"file": "/tmp/subl stdin 3nCWEX.txt",
 					"settings":
 					{
-						"buffer_size": 6557,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1135,
-								1135
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "README.md",
+					"settings":
+					{
+						"buffer_size": 6437,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								982,
+								982
 							]
 						],
 						"settings":
@@ -289,7 +360,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 300.0,
+						"translation.y": 1065.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
