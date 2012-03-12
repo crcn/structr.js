@@ -30,7 +30,15 @@
 			"file": "lib/index.js",
 			"settings":
 			{
-				"buffer_size": 11833,
+				"buffer_size": 11899,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/tmp/subl stdin pKhZWT.txt",
+			"settings":
+			{
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		},
@@ -158,6 +166,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"merge",
 			"mixin",
 			"mixins",
 			"argsToArray",
@@ -268,15 +277,15 @@
 					"file": "lib/index.js",
 					"settings":
 					{
-						"buffer_size": 11833,
+						"buffer_size": 11899,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								51,
-								51
+								8397,
+								8397
 							]
 						],
 						"settings":
@@ -285,14 +294,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 7712.0,
+						"translation.y": 6121.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/tmp/subl stdin iPCA55.txt",
+					"file": "/tmp/subl stdin pKhZWT.txt",
 					"settings":
 					{
 						"buffer_size": 0,
@@ -318,7 +327,7 @@
 				},
 				{
 					"buffer": 4,
-					"file": "/tmp/subl stdin phXxWY.txt",
+					"file": "/tmp/subl stdin iPCA55.txt",
 					"settings":
 					{
 						"buffer_size": 0,
@@ -344,7 +353,7 @@
 				},
 				{
 					"buffer": 5,
-					"file": "/tmp/subl stdin 8UQj11.txt",
+					"file": "/tmp/subl stdin phXxWY.txt",
 					"settings":
 					{
 						"buffer_size": 0,
@@ -370,6 +379,32 @@
 				},
 				{
 					"buffer": 6,
+					"file": "/tmp/subl stdin 8UQj11.txt",
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
 					"file": "examples/proto.js",
 					"settings":
 					{
@@ -396,7 +431,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "/tmp/subl stdin LzRuSh.txt",
 					"settings":
 					{
@@ -422,7 +457,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "examples/wrapAround.js",
 					"settings":
 					{
@@ -449,7 +484,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "/tmp/subl stdin 3nCWEX.txt",
 					"settings":
 					{
@@ -475,7 +510,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 11,
 					"file": "README.md",
 					"settings":
 					{
@@ -502,7 +537,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 12,
 					"file": "/tmp/subl stdin F1RmBZ.txt",
 					"settings":
 					{
@@ -528,7 +563,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 13,
 					"file": "/tmp/subl stdin TLdPRD.txt",
 					"settings":
 					{
