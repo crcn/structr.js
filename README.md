@@ -121,13 +121,13 @@ var AbstractCache = structr({
 	 * returns a cached value
 	 */
 
-	"abstract get": function(key, onValue) { },
+	"abstract get": function(key, onGet) { },
 
 	/**
 	 * sets a cached value
 	 */
 
-	"abstract set": function(key, value, onSave) { }
+	"abstract set": function(key, value, onSet) { }
 });
 
 /**
