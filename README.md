@@ -211,7 +211,8 @@ var FsCache = MemoryCache.extend({
 			//write the json file, with the json content
 			fs.writeFile(self._path, JSON.parse(self._collection), function(err result) {
 
-				//give some time before unlocking the save method. We don't want to hit fs.write on each set
+				//give some time before unlocking the save method. 
+				//We don't want to hit fs.write on each set
 				setTimeout(function() {
 					self._saving = false;
 				}, 2000);
