@@ -78,7 +78,6 @@ var Mouse = Structr(EventEmitter, {
 		},
 		"set": function(value) {
 			this._position = value;
-			this.once("move", coords);
 			this.emit("move");
 		}
 	} 
