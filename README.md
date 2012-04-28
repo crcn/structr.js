@@ -186,6 +186,9 @@ var FsCache = MemoryCache.extend({
 
 	"override get": function(key, onKey) {
 		var _super = this._super;
+
+		//load the fs cache before getting the value - this only happens ONCE 
+		//since _load is an asynchronous singleton.
 		this._load(function() {
 			_super(key, onKey);
 		});
@@ -193,6 +196,7 @@ var FsCache = MemoryCache.extend({
 
 
 	/**
+	 * saves the collection to disc
 	 */
 
 	"_save": function() {
@@ -201,8 +205,13 @@ var FsCache = MemoryCache.extend({
 
 		var self = this;
 
+		//make the directory incase it doesn't exist. 
 		this._mkdir(path.dirname(this._path), function() {
+
+			//write the json file, with the json content
 			fs.writeFile(self._path, JSON.parse(self._collection), function(err result) {
+
+				//give some time before unlocking the save method. We don't want to hit fs.write on each set
 				setTimeout(function() {
 					self._saving = false;
 				}, 2000);
@@ -211,6 +220,7 @@ var FsCache = MemoryCache.extend({
 	},
 
 	/**
+	 * loads the fs cache into memory
 	 */
 
 	"singleton _load": function(onLoad) {
@@ -219,9 +229,11 @@ var FsCache = MemoryCache.extend({
 		} catch(e) {
 			//do nothing - the file doesn't exist
 		}
+		onLoad();
 	},
 
 	/**
+	 * makes the fs cache directory incase it's nested. Only happens ONCE on save.
 	 */
 
 	"singleton _mkdir": function(onMkdir) {
