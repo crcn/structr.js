@@ -34,13 +34,14 @@ Node.js:
 
 ```javascript
 
-var EventEmitter = require("events").EventEmitter;
+var EventEmitter = require("events").EventEmitter,
+structr          = require("structr");
  
 /**
  * create a mouse class which extends the node.js event emitter
  */
 
-var Mouse = Structr(EventEmitter, {  
+var Mouse = structr(EventEmitter, {  
 
 	/**
 	 */
