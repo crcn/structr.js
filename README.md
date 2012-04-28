@@ -88,7 +88,7 @@ var mouse = new Mouse();
 
 //listen for when the mouse has moved
 mouse.on("move", function() {
-	
+	console.log("mouse moved!");
 })
 
 //move 100 px left, and 100 px from the top
