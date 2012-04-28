@@ -4,108 +4,249 @@ Structr -  Structure for Javascript
 Structr is a framework with the following goals:
                                                
 * Lightweight.
+# Fast.
 * Provide as few new concepts as possible coming from OOP.
 * Easy to learn.
 * Help develop re-useable, clean, and consistent code.              
 * Reduce the amount of reduntant/boilerplate code.  
-	
 
-Supports:        
+
+### Supported Operators:        
                                              
 * _super                                     
 * inheritance      
 * overloading methods
 * Implicit / Explicit getters & setters
-* Override, and Static       
-* metadata      
-* mixing modifiers. e.g: 'explicit bindable name': function(){}          
-	
+* Override, and Static  
+* abstract methods
+* add your own custom operators
 
-Installation
-------------
+
+### Installation
 
 Node.js: 
 
 	npm install structr
 		   
 		
-Using Structr
--------------
+### .structr([...parents], classObject)
 
 
 ```javascript
+
+var EventEmitter = require("events").EventEmitter;
  
-var Recipe = Structr({  
-	
-	'__construct': function (name)
-	{
-		this._name = name;
-	},                
-	
-	'name': function ()
-	{
-		return this._name;
+/**
+ * create a mouse class which extends the node.js event emitter
+ */
+
+var Mouse = Structr(EventEmitter, {  
+
+	/**
+	 */
+
+	"__construct": function() {
+		this._super();
+
+		//initial coords
+		this.move(0, 0);
 	},
-	
-	'ingredients': function ()
-	{
-		alert('This is going to be tasty...');
-	}
+
+	/**
+	 * moves the mouse
+	 */
+
+	"move": function(x, y) {
+		this.position({ x: x, y: y});
+	},
+
+	/**
+	 * second version of move incase an object is provided
+	 */
+
+	"second move": function(position) {
+		this.position(position);
+	},
+
+	/**
+	 * getter / setter for the position
+	 */
+
+	"explicit position": {
+		"get": function() {
+			return this._position;
+		},
+		"set": function(value) {
+			this._position = value;
+			this.once("move", coords);
+			this.emit("move");
+		}
+	} 
 });                      
 
-var tiramisuRecipe = new Recipe('Tiramisu');   
-console.log(tiramisuRecipe.name()); //tiramisu
+var mouse = new Mouse();
+
+//listen for when the mouse has moved
+mouse.on("move", function() {
+	
+})
+
+//move 100 px left, and 100 px from the top
+mouse.move(100, 100);
 
 ```
 
 
-### Class.extend
+### Class.extend(target, [...mixins]);
+
+Extends a class
 
 
 ```javascript
 
-var TiramisuRecipe = Recipe.extend({
+var fs  = require("fs"),
+structr = require("structr"),
+mkdirp  = require("mkdirp"),
+path    = require("path");
 
-	'override __construct': function ()
-	{
-		this._super('Tiramisu');
-	},
+structr.mixin(require("asyngleton"));
+
+/**
+ * base cache template
+ */
+
+var AbstractCache = structr({
 	
-	'override ingredients': function ()
-	{
-		this._super();
-		
-		alert('Mascarpone, Heavy Cream, Eggs, Espresso, Sugar, Cocoa, Baileys, and Lady Fingers.');
+	/**
+	 * returns a cached value
+	 */
+
+	"abstract get": function(key, onValue) { },
+
+	/**
+	 * sets a cached value
+	 */
+
+	"abstract set": function(key, value, onSave) { }
+});
+
+/**
+ * memory cache
+ */
+
+var MemoryCache = AbstractCache.extend({
+	
+	/**
+	 */
+
+	"__construct": function() {
+		this._collection = {};
+	},
+
+	/**
+	 */
+
+	"get": function(key, onGet) {
+		onGet(null, this._collection[key]);
+	},
+
+	/**
+	 */
+
+	"set": function(key, value, onSet) {
+		this._collection[key] = value;
+		if(onSet) onSet(null, value);
 	}
 });
 
-var PastaRecipe = Recipe.extend({
-	
-	'override __construct': function ()
-	{
-		this._super('Pasta');
-	},
-	
-	'override ingredients': function ()
-	{
-		this._super();
+
+/**
+ */
+
+var FsCache = MemoryCache.extend({
 		
-		alert('Eggs, Flour, Water, Salt');
+	/**
+	 */
+
+	"override __construct": function(path) {
+		this._path = path;
+		this._super();
+	},
+
+	/**
+	 */
+
+	"override set": function() {
+		this._super.apply(this, arguments);
+		this._save();
+	},
+
+	/**
+	 */
+
+	"override get": function(key, onKey) {
+		var _super = this._super;
+		this._load(function() {
+			_super(key, onKey);
+		});
+	},
+
+
+	/**
+	 */
+
+	"_save": function() {
+		if(this._saving) return;
+		this._saving = true;
+
+		var self = this;
+
+		this._mkdir(path.dirname(this._path), function() {
+			fs.writeFile(self._path, JSON.parse(self._collection), function(err result) {
+				setTimeout(function() {
+					self._saving = false;
+				}, 2000);
+			});
+		});
+	},
+
+	/**
+	 */
+
+	"singleton _load": function(onLoad) {
+		try {
+			this._collection = require(this._path);
+		} catch(e) {
+			//do nothing - the file doesn't exist
+		}
+	},
+
+	/**
+	 */
+
+	"singleton _mkdir": function(onMkdir) {
+		mkdirp(path.dirname(this._path), onMkdir);
 	}
 });
 
-var tiramisu = new TiramisuRecipe();
-var pasta = new PastaRecipe();
 
-tiramisu.ingredients();
-pasta.ingredients();
+var cache = new FsCache(__dirname + "/test.json");
+
+
+cache.get("name", function(err, name) {
+
+	if(name) {
+		return console.log("hello %s!", name);
+	}
+
+	cache.set("name", "craig", function() {
+		console.log("saved!");
+	});
+});
 
 ```
 
-
-
-Modifiers
----------      
+### Modifiers    
                       
 ### Overriding Methods
 
@@ -113,7 +254,7 @@ Methods overridden have access to the _super property.
 
 ```javascript
 
-'override __construct': function ()
+"override __construct": function ()
 {
 	this._super();
 }
@@ -127,7 +268,7 @@ Faster if you don't plan on using _super.
 
 ```javascript
 
-'__construct': function ()
+"__construct": function ()
 {
 	//cannot access _super __construct
 }
@@ -144,18 +285,18 @@ Overloading methods allows you to write polymorphic functions which are mapped o
 
 var Person = Structr({
 
-	'sayHello': function (name, callback)
+	"sayHello": function (name, callback)
 	{
 		this._name = name;
 		this.sayHello(callback);
 	},
 
-	'2 sayHello': function (callback)
+	"second sayHello": function (callback)
 	{
 		callback(this.sayHello());
 	},
 
-	'3 sayHello': function ()
+	"third sayHello": function ()
 	{
 		return 'Hello ' + this._name;
 	}
@@ -163,20 +304,20 @@ var Person = Structr({
 
 var SubPerson = Person.extend({
 
-	'override sayHello': function (callback)
+	"override sayHello": function (callback)
 	{
-		callback(this.sayHello() + ' Do you like italian food?');
+		callback(this.sayHello() + " Do you like italian food?");
 	},
 
-	'override second sayHello': function ()
+	"override second sayHello": function ()
 	{
-		return 'Hello ' + this._name + ', how are you doing today?';
+		return "Hello " + this._name + ", how are you doing today?";
 	}
 });
 
 
 var p = new SubPerson();
-p.sayHello('Craig', function(message)
+p.sayHello("Craig", function(message)
 {
 	alert(message); //Hello Craig. how are you doing today? Do you like italian food?
 });
@@ -192,7 +333,7 @@ Properties, and methods set to the class versus objects instantiated.
 
 var Singleton = Structr({
 	
-	'static getInstance': function ()
+	"static getInstance": function ()
 	{
 		return this._instance || (this._instance = new Singleton());
 	}
@@ -216,29 +357,29 @@ Both Implicit / Explicit methods are supported, however implicit getters & sette
 
 var GSTestClass = Structr({
 
-	'explicit explicitValue': {
-		get: function ()
+	"explicit explicitValue": {
+		"get": function ()
 		{
 			return this._name;
 		},
-		set: function (value)
+		"set": function (value)
 		{
 			this._name = value;
 		}
 	},
 	
-	'implicit implicitValue': {
-		get: function ()
+	"implicit implicitValue": {
+		"get": function ()
 		{
 			return this._name;
 		},
-		set: function (value)
+		"set": function (value)
 		{
 			this._name = value;
 		}
 	},
 	
-	'explicit explicitValue2':true
+	"explicit explicitValue2":true
 });
 
 
@@ -266,9 +407,9 @@ Custom modifiers are considered metadata. Use them to identify how specific meth
 
 var MetadataTestClass = Structr({
 	
-	'myCustomMetadata test': function ()
+	"myCustomMetadata test": function ()
 	{
-		return 'Hello Test';
+		return "Hello Test";
 	}
 }));
 
@@ -287,18 +428,18 @@ To add. Makes a property bindable for change. Psuedocode:
 
 var Person = Structr({
 	
-	'__construct': function(name)
+	"__construct": function(name)
 	{
 		this.name(name);
 		
 		Bindable.apply(this);
 	},
 	
-	'bindable explicit name': 1
+	"bindable explicit name": 1
 });
 
 
-var person1 = new Person('craig');
+var person1 = new Person("craig");
 
 //listen for any change to name
 person1.name.subscribe(function(newName)
@@ -307,7 +448,7 @@ person1.name.subscribe(function(newName)
 });
 
 //on change the subscribers will be triggered
-person1.name('Craig');
+person1.name("Craig");
 
 ```
 	
@@ -320,19 +461,19 @@ To add. Easy way to store settings on the user's computer. Psuedocode:
 
 var User = Structr({
 
-	'__construct': function ()
+	"__construct": function ()
 	{
 		SettingManager.apply(this);
 	},
 	
-	'login': function ()
+	"login": function ()
 	{
 		
 		//set the account info which will be saved as a cookie
-		this.accountInfo({ name: 'Craig', last: 'Condon', 'token': 'XXXXXXXXXX' })
+		this.accountInfo({ name: "Craig", last: "Condon", token: "XXXXXXXXXX" })
 	},
 	
-	'setting explicit accountInfo': 1
+	"setting explicit accountInfo": 1
 });
 
 
@@ -364,12 +505,12 @@ E.g:
 
 var SomeClass = Structr({
 	
-	'__construct': function ()
+	"__construct": function ()
 	{
-		this._myPrivateVariable = 'some private value';
+		this._myPrivateVariable = "some private value";
 	},
 	
-	'_myPrivateMethod': function ()
+	"_myPrivateMethod": function ()
 	{
 		//private stuff here
 	}
