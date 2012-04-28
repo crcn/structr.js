@@ -109,6 +109,7 @@ structr = require("structr"),
 mkdirp  = require("mkdirp"),
 path    = require("path");
 
+//mixin the singleton plugin
 structr.mixin(require("asyngleton"));
 
 /**
