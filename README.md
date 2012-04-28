@@ -292,7 +292,7 @@ Faster if you don't plan on using _super.
 	
 ### Overloading Methods (Experimental)
 
-Overloading methods allows you to write polymorphic functions which are mapped out depending on the number of parameters used. You must provide your own identifier (it could be anything) for each overloaded method, otherwise you'll simply be overwriting methods. 
+Overloading methods allows you to write methods which are mapped out depending on the number of parameters used. You must provide your own identifier (it could be anything) for each overloaded method, otherwise you'll simply be overwriting methods. For this example, I separate methods based on their order, e.g. `one`, `two`, `three`, etc.
 
 
 ```javascript
