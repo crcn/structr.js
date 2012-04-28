@@ -112,7 +112,7 @@ path    = require("path");
 structr.mixin(require("asyngleton"));
 
 /**
- * base cache template
+ * base cache interface
  */
 
 var AbstractCache = structr({
