@@ -19,7 +19,14 @@ Structr is a framework with the following goals:
 * Implicit / Explicit getters & setters
 * Override, and Static  
 * abstract methods
-* add your own custom operators
+* add your own custom operators (mixins)
+
+
+### Third-party mixins
+
+* [asyngleton](/crcn/asyngleton.js) - asynchronous singletons
+* [step](/crcn/structr-step) 
+                           
 
 
 ### Installation
