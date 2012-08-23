@@ -18,7 +18,7 @@ Structr.mixin({
 
 var SomeClass = Structr(EventEmitter, {
 
-	'override constructor': function() {
+	'override __construct': function() {
 		
 		this._super();
 
