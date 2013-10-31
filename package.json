@@ -1,11 +1,15 @@
 {
-    "name": "structr",
-    "description": "Clean OO structure for Javascript.",
-    "version": "0.2.4",
-    "author": "Craig Condon",
-    "repository": {
-        "type": "git",
-        "url": "http://github.com/spiceapps/Structr.git"
-    },
-    "main": "./lib/index.js"
+  "name": "structr",
+  "description": "javascript class system",
+  "version": "0.3.0",
+  "author": "Craig Condon",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/spiceapps/Structr.git"
+  },
+  "main": "./lib/index.js",
+  "devDependencies": {
+    "expect": "0.0.2",
+    "mocha": "~1.13.0"
+  }
 }
