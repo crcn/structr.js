@@ -32,6 +32,7 @@ describe("basic#", function() {
     expect(architect.isArchitect).to.be(true);
     expect(architect.name).to.be("craig");
     expect(architect.construct.__super__).to.be(Person.prototype);
+    expect(architect.superclass).to.be(Person);
   });
 
 

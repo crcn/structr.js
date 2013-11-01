@@ -1,7 +1,7 @@
 {
   "name": "structr",
   "description": "javascript class system",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Craig Condon",
   "repository": {
     "type": "git",
