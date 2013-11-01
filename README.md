@@ -4,18 +4,21 @@ Structr is a thin class library that helps create, and extend prototypes.
 
 
 ```javascript
-var Animal = structr({
-	construct: function(name) {
-		this.name = name;
-	}
+
+
+function Animal(name) {
+  this.name = name;
+}
+
+function Cat(name) {
+  Cat.__super__.apply(this, arguments);
+}
+
+structr(Animal, Cat, {
+  meow: function() {
+    console.log(this.name + ": meow");
+  }
 });
 
-var Cat = Animal.extend({
-	meow: function() {
-		console.log(this.name + ": meow!");
-	}
-});
 
-var cat = new Cat("sam");
-cat.meow(); // sam: meow!
 ```
